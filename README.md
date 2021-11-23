@@ -7,6 +7,8 @@
 >git config --global init.defaultbranch main
 
 ## Setting up Github to your project
+**Notice:** You are **not** required to run the command 'expo init project-name'
+
 Go to your project's directory
 
 >cd <your-project's directory> 
