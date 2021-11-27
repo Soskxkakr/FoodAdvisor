@@ -1,5 +1,5 @@
 # FoodAdvisor
-## Setting up Github using 'git config'
+## Setting up Github global environment
 >git config --global user.name "Your Username"
 
 >git config --global user.email "Your Email"
