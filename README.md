@@ -21,7 +21,7 @@ Windows: C:\john\myprojects\react-native\FoodAdvisor
 
 >git init
 
->git remote add origin "git@github.com:Soskxkakr/FoodAdvisor.git"
+>git remote add origin "This Github's URL (either HTTP or SSH)"
 
 >git pull
 
