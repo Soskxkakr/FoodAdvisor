@@ -15,9 +15,9 @@ Go to your project's directory
 
 e.g. 
 
-Linux: ~/react-native-projects/FoodAdvisor
+Linux: cd ~/react-native-projects/FoodAdvisor
 
-Windows: C:\john\myprojects\react-native\FoodAdvisor
+Windows: cd C:\john\myprojects\react-native\FoodAdvisor
 
 >git init
 
