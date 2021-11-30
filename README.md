@@ -1,5 +1,9 @@
 # FoodAdvisor
 
+## Important Notice
+
+Update line 3 in /node_modules/expo/AppEntry.js into **"../../Components/MainComponents/Dashboard/App"**
+
 ## Setting up Github global environment
 
 > git config --global user.name "Your Username"
@@ -26,13 +30,7 @@ Windows: cd C:\john\myprojects\react-native\FoodAdvisor
 
 > git init
 
-<<<<<<< HEAD
-
-> # git remote add origin "git@github.com:Soskxkakr/FoodAdvisor.git"
->
 > git remote add origin "This Github's URL (either HTTP or SSH)"
->
-> > > > > > > 895619a3da1760763f9427a6879323dc634cd595
 
 > git pull
 
