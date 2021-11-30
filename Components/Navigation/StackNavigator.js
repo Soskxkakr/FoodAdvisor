@@ -4,6 +4,7 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import { NavigationContainer } from "@react-navigation/native";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
+import BottomTabNavigator from "./BottomTabNavigator";
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,13 @@ const StackNavigator = () => {
             headerTintColor: "#FFF",
             headerTitleStyle: { fontSize: 28 },
             headerTitleAlign: "center",
+          }}
+        />
+        <Stack.Screen
+          name="Home"
+          component={BottomTabNavigator}
+          options={{
+            headerShown: false,
           }}
         />
       </Stack.Navigator>

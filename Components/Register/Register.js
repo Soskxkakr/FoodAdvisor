@@ -1,13 +1,13 @@
 import React from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import styles from "../MainComponents/Design/GlobalStyles";
-import RegisterStyles from "./Design/RegisterStyles";
+import Footer from "../Footer/Footer";
 
-const Register = () => {
+const Register = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <View stlye={RegisterStyles.inputContainer}>
-        <Text style={RegisterStyles.registerHeaderText}>Sign Up</Text>
+      <View stlye={styles.innerContainer}>
+        <Text style={styles.title}>Sign Up</Text>
         <TextInput style={styles.textInput} placeholder="Name" />
         <TextInput
           style={styles.textInput}
@@ -25,15 +25,21 @@ const Register = () => {
           placeholder="Confirm Password"
           secureTextEntry
         />
-        <Text style={RegisterStyles.tncText}>
+        <Text style={[styles.primaryText, styles.textCenter]}>
           By signing up, I accept and agree to the{" "}
-          <Text style={RegisterStyles.underlineBold}>Terms of Service</Text> and{" "}
-          <Text style={RegisterStyles.underlineBold}>Privacy Policy</Text>
+          <Text style={[styles.textUnderline, styles.textBold]}>
+            Terms of Service
+          </Text>{" "}
+          and{" "}
+          <Text style={[styles.textUnderline, styles.textBold]}>
+            Privacy Policy
+          </Text>
         </Text>
         <TouchableOpacity style={styles.buttonPrimary}>
           <Text style={styles.buttonTextPrimary}>Sign Up</Text>
         </TouchableOpacity>
       </View>
+      <Footer navigation={navigation} />
     </View>
   );
 };

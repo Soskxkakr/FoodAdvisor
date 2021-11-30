@@ -3,14 +3,13 @@ import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import styles from "../MainComponents/Design/GlobalStyles";
-import loginStyles from "./Design/LoginStyles";
 
 const Login = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Header />
-      <View style={loginStyles.inputContainer}>
-        <Text style={loginStyles.loginHeaderText}>Sign In</Text>
+      <View style={styles.innerContainer}>
+        <Text style={styles.title}>Sign In</Text>
         <TextInput
           style={styles.textInput}
           placeholder="Email Address"
@@ -22,16 +21,19 @@ const Login = ({ navigation }) => {
           placeholder="Password"
           secureTextEntry
         />
-        <TouchableOpacity style={styles.buttonPrimary}>
+        <TouchableOpacity
+          style={styles.buttonPrimary}
+          onPress={() => navigation.navigate("Home")}
+        >
           <Text style={styles.buttonTextPrimary}>Sign In</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")}>
-          <Text style={loginStyles.loginForgotPasswordText}>
+          <Text style={[styles.primaryText, styles.textRight]}>
             Forgot Password?
           </Text>
         </TouchableOpacity>
       </View>
-      <Footer navigation={navigation} />
+      <Footer navigation={navigation} currentScreen="Login" />
     </View>
   );
 };

@@ -10,6 +10,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFFFFF",
   },
+  innerContainer: {
+    flex: 3,
+    backgroundColor: "#FFFFFF",
+  },
+  title: {
+    fontSize: 48,
+    color: "#FF7A00",
+    marginTop: 48,
+    marginStart: 24,
+  },
   header: {
     flex: 1,
     alignItems: "center",
@@ -24,7 +34,8 @@ const styles = StyleSheet.create({
   footer: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-end",
+    paddingBottom: 44,
     backgroundColor: "#FFFFFF",
     color: "#FF7A00",
   },
@@ -36,6 +47,25 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "#FF7A00",
+  },
+  primaryText: {
+    marginTop: 18,
+    marginHorizontal: 24,
+    textAlign: "left",
+    fontSize: 24,
+    color: "#FF7A00",
+  },
+  textCenter: {
+    textAlign: "center",
+  },
+  textRight: {
+    textAlign: "right",
+  },
+  textUnderline: {
+    textDecorationLine: "underline",
+  },
+  textBold: {
+    fontWeight: "bold",
   },
   textInput: {
     marginTop: 18,
