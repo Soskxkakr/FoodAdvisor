@@ -1,9 +1,5 @@
 # FoodAdvisor
 
-## Important Notice
-
-Update line 3 in /node_modules/expo/AppEntry.js into **"../../Components/MainComponents/Dashboard/App"**
-
 ## Setting up Github global environment
 
 > git config --global user.name "Your Username"
