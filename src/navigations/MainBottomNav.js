@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Home from "../screens/Home";
 import Favorites from "../screens/Favorites";
-import MyAccount from "../screens/MyAccount";
+import ProfileStack from "./ProfileStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -24,7 +24,7 @@ const BottomTabNavigator = () => {
           const icons = {
             Feed: "home",
             Favorites: "heart",
-            Profile: "user",
+            ProfileStack: "user",
           };
           return (
             <Icon
@@ -39,7 +39,7 @@ const BottomTabNavigator = () => {
     >
       <Tab.Screen name="Feed" component={Home} />
       <Tab.Screen name="Favorites" component={Favorites} />
-      <Tab.Screen name="Profile" component={MyAccount} />
+      <Tab.Screen name="ProfileStack" component={ProfileStack} />
     </Tab.Navigator>
   );
 };

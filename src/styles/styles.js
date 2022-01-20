@@ -17,8 +17,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: FoodTheme.bgColor,
   },
-  innerContainer: {
-    flex: 3,
+  restaurantFavoriteListContainer: {
+    flexDirection: "row",
+    marginTop: 12,
+    marginHorizontal: FoodTheme.marginX,
     backgroundColor: "#FFFFFF",
   },
   title: {

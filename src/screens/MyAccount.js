@@ -40,7 +40,10 @@ const MyAccount = ({ navigation }) => {
           />
           <Text style={{ fontSize: 24, marginLeft: 12 }}>John Doe</Text>
         </View>
-        <FAButton title="Edit Profile" />
+        <FAButton
+          title="Edit Profile"
+          onPress={() => navigation.navigate("EditProfile")}
+        />
         <View
           style={{
             marginTop: 18,
