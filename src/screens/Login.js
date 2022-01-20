@@ -13,11 +13,14 @@ import FAFooter from "../components/FAFooter";
 import FATextInput from "../components/FATextInput";
 import FAButton from "../components/FAButton";
 import useFoodAdvisor from "../contexts/useFoodAdvisor";
+import useFirebase from "../contexts/useFirebase";
 import styles from "../styles/styles";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { signInUser } = useFirebase();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -35,7 +38,7 @@ const Login = ({ navigation }) => {
           onChangeText={setPassword}
           secured={true}
         />
-        <FAButton title="Sign In" onPress={() => navigation.navigate("Home")} />
+        <FAButton title="Sign In" onPress={() => signInUser(email, password)} />
         <TouchableOpacity
           style={{ alignItems: "flex-end" }}
           onPress={() => navigation.navigate("ForgotPassword")}

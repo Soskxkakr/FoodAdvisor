@@ -4,41 +4,50 @@ import Login from "../screens/Login";
 import Register from "../screens/Register";
 import ForgotPassword from "../screens/ForgotPassword";
 import MainBottomNav from "./MainBottomNav";
+import useFirebase from "../contexts/useFirebase";
 
 const Stack = createNativeStackNavigator();
 
 const LoginStack = () => {
+  const { user } = useFirebase();
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="ForgotPassword"
-        component={ForgotPassword}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Register"
-        component={Register}
-        options={{
-          headerTitle: "New User Registration",
-          headerStyle: { backgroundColor: "#FF7A00" },
-          headerTintColor: "#FFF",
-          headerTitleStyle: { fontSize: 28 },
-        }}
-      />
-      <Stack.Screen
-        name="Home"
-        component={MainBottomNav}
-        options={{
-          headerShown: false,
-        }}
-      />
+      {user ? (
+        <>
+          <Stack.Screen
+            name="Home"
+            component={MainBottomNav}
+            options={{
+              headerShown: false,
+            }}
+          />
+        </>
+      ) : (
+        <>
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ForgotPassword"
+            component={ForgotPassword}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Register"
+            component={Register}
+            options={{
+              headerTitle: "New User Registration",
+              headerStyle: { backgroundColor: "#FF7A00" },
+              headerTintColor: "#FFF",
+              headerTitleStyle: { fontSize: 28 },
+            }}
+          />
+        </>
+      )}
     </Stack.Navigator>
   );
 };

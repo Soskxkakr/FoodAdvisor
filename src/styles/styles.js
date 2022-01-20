@@ -22,6 +22,11 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginHorizontal: FoodTheme.marginX,
     backgroundColor: "#FFFFFF",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.4,
+    shadowRadius: 6,
+    elevation: 10,
   },
   title: {
     fontSize: 48,

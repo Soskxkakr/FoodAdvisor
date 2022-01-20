@@ -37,7 +37,7 @@ export const FirebaseProvider = ({ children }) => {
       return;
     }
     await signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
+      .then((creds) => {
         console.log("Login");
       })
       .catch((error) => {
