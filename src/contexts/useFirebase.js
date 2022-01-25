@@ -2,28 +2,56 @@ import React, { useState, useContext, createContext, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-import { auth, db } from "../helpers/Firebase";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import uuid from "react-native-uuid";
+import { auth, db, storage } from "../helpers/Firebase";
 import useFoodAdvisor from "./useFoodAdvisor";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { convertToMonth } from "../helpers/FAHelper";
 
 const FirebaseContext = createContext({});
 
 export const FirebaseProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const { setSnackbarMessage, setSnackVisible } = useFoodAdvisor();
+  const [userData, setUserData] = useState(null);
+  const [favorites, setFavorites] = useState([]);
+  const { setSnackbarMessage, setSnackVisible, pushNotification } =
+    useFoodAdvisor();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
+        fetchUserData(user.uid);
       } else {
         setUser(null);
       }
     });
   }, [user]);
+
+  const fetchUserData = async (userId) => {
+    await getDoc(doc(db, "users", userId))
+      .then((docSnap) => {
+        let userObject = docSnap.data();
+        userObject.id = userId;
+        setUserData(userObject);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   const signInUser = async (email, password) => {
     if (email === "" || password === "") {
@@ -38,7 +66,7 @@ export const FirebaseProvider = ({ children }) => {
     }
     await signInWithEmailAndPassword(auth, email, password)
       .then((creds) => {
-        console.log("Login");
+        fetchUserData(creds.user.uid);
       })
       .catch((error) => {
         setSnackbarMessage("Invalid Email or Password. Please try again.");
@@ -86,6 +114,9 @@ export const FirebaseProvider = ({ children }) => {
         setDoc(doc(db, "users", userCredentials.user.uid), {
           name: user.name,
           user_email: user.email,
+          date_registered: `${convertToMonth(
+            new Date().getMonth + 1
+          )} ${new Date().getFullYear()}`,
         });
         setSnackbarMessage("Registration Success.");
         setSnackVisible(true);
@@ -95,6 +126,70 @@ export const FirebaseProvider = ({ children }) => {
         setSnackVisible(true);
         console.log(error);
       });
+  };
+
+  const updateUserDetails = async (id, profilePicture, name, location) => {
+    let imageUrl = "";
+    if (profilePicture) {
+      let randomId = uuid.v4();
+      let fileExtension = profilePicture.split(".").pop();
+      let fileName = `${randomId}.${fileExtension}`;
+      let response = await fetch(profilePicture);
+      let blob = await response.blob();
+      const imageRef = ref(storage, `profile_picture/${fileName}`);
+
+      await uploadBytes(imageRef, blob).then((snapshot) => {});
+      await getDownloadURL(imageRef).then((url) => {
+        imageUrl = url;
+      });
+    }
+
+    await updateDoc(doc(db, "users", id), {
+      profile_picture: imageUrl,
+      name: name,
+      location: location,
+    })
+      .then(() => {
+        setSnackbarMessage("Profile Updated.");
+        setSnackVisible(true);
+      })
+      .catch((error) => {
+        setSnackbarMessage("An error occured while updating profile.");
+        setSnackVisible(true);
+        console.log(error);
+      });
+  };
+
+  const resetPassword = async (email) => {
+    if (email === "") {
+      setSnackbarMessage("Email field can't be empty.");
+      setSnackVisible(true);
+      return;
+    }
+    await sendPasswordResetEmail(auth, email)
+      .then(async () => {
+        await pushNotification(
+          "Reset Password 🔁",
+          "Reset Password has been sent to your email.",
+          1
+        );
+        setSnackbarMessage("Reset password has been sent to your email.");
+        setSnackVisible(true);
+      })
+      .catch((error) => {
+        setSnackbarMessage("An error has occured. Please try again.");
+        setSnackVisible(true);
+      });
+  };
+
+  const getFavorites = async () => {
+    setFavorites([]);
+    const querySnapshot = await getDocs(collection(db, "restaurants"));
+    querySnapshot.forEach((restaurant) => {
+      if (restaurant.data().liked_by.includes(user.uid)) {
+        setFavorites((prevState) => [...prevState, restaurant.data()]);
+      }
+    });
   };
 
   const logout = async () => {
@@ -113,7 +208,17 @@ export const FirebaseProvider = ({ children }) => {
 
   return (
     <FirebaseContext.Provider
-      value={{ user, signInUser, registerNewUser, logout }}
+      value={{
+        user,
+        userData,
+        favorites,
+        signInUser,
+        registerNewUser,
+        updateUserDetails,
+        resetPassword,
+        getFavorites,
+        logout,
+      }}
     >
       {children}
     </FirebaseContext.Provider>

@@ -1,40 +1,18 @@
-import useFoodAdvisor from "../contexts/useFoodAdvisor";
+const convertToMonth = (month) => {
+  if (month === 1) return "Jan";
+  if (month === 2) return "Feb";
+  if (month === 3) return "Mar";
+  if (month === 4) return "Apr";
+  if (month === 5) return "May";
+  if (month === 6) return "Jun";
+  if (month === 7) return "Jul";
+  if (month === 8) return "Aug";
+  if (month === 9) return "Sep";
+  if (month === 10) return "Oct";
+  if (month === 11) return "Nov";
+  if (month === 12) return "Dec";
 
-const { setSnackbarMessage, setSnackVisible } = useFoodAdvisor();
-
-const validateUser = (user) => {
-  // Check for user's credentials
-  if (
-    user.name === "" ||
-    user.email === "" ||
-    user.password === "" ||
-    user.confirmPassword === ""
-  ) {
-    setSnackbarMessage("Please fill in the required fields.");
-    setSnackVisible(true);
-    return false;
-  }
-  // Email Validation
-  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(user.email)) {
-    setSnackbarMessage("Please enter a valid email address.");
-    setSnackVisible(true);
-    return false;
-  }
-  // Check for Password and Confirm Password
-  if (user.password.length < 8 || user.confirmPassword < 8) {
-    setSnackbarMessage(
-      "Password and Confirm Password must be at least 8 characters."
-    );
-    setSnackVisible(true);
-    return false;
-  }
-  // Match Password and Confirm Password
-  if (user.password !== user.confirmPassword) {
-    setSnackbarMessage("Password and Confirm Password must be the same.");
-    setSnackVisible(true);
-    return false;
-  }
-  return true;
+  return "Jan";
 };
 
-export default validateUser;
+export { convertToMonth };
